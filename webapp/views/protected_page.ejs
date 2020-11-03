@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/js/rickshaw/rickshaw.css">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/popper.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/d3.js" charset="utf-8"></script>
+  <script src="/js/rickshaw/rickshaw.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/load_configs.js"></script>
+  <script src="/js/core.js"></script>
+  <script src="/js/load_profile.js"></script>
+  <title>VIRHUS</title>
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
+  
+  <link href="css/toggle-slider.css" rel="stylesheet">
+
+ <style>
+   body {
+   
+    }
+   
+    .navbar{
+    	max-height: 56px;
+    }
+    footer.sticky-footer{
+    	height: 30px;
+    }
+    .chart_container {
+      position: relative;
+      font-family: Arial, Helvetica, sans-serif;
+
+    }
+    .close_graphic{
+    	position: absolute;
+    	top: 0;
+    	right:0;
+    	padding: 5px;
+    }
+    select{
+    	margin:5px;
+    }
+    
+    .graphic{
+    	height:0px;
+    	margin-bottom: 130px;
+
+    }
+    .demo_chart {
+      position: relative;
+      left:40px;
+    }
+
+    .y_axis {
+      position: absolute;
+      float:left;
+      width: 40px;
+      height: 100px;
+    }
+   .button_container{
+   	margin-top: 5px;
+   	height: 50px;
+   }
+    .chart_container {
+    	margin-top:70px;
+    	
+    	background-color: #f8f9fa!important;
+    	
+    	padding: 10px;
+
+    }
+    .btn{
+    	float: left;
+    	margin: 5px;
+    
+    }
+    select{
+    	float: left;
+    }
+    .form-control{
+    	width:auto;
+    }
+    .c3-axis-x .tick line {
+      display: none;
+    }
+ </style> 
+</head>
+
+
+<body id="page-top">
+<div>
+
+<div aria-live="polite" aria-atomic="true" style="position: relative;">
+  <div class="toast" style="position: absolute; top: 70px; right: 0;" data-delay="5000">
+    <div class="toast-header">
+    
+      <strong class="mr-auto">Server Message</strong>
+      <small>Now</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      Error on creating Virtual Human
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Name of Virtual Human</label>
+		    <input type="email" class="form-control" id="configName" aria-describedby="emailHelp" placeholder="Bob">
+		    <small id="emailHelp" class="form-text text-muted">you cannot have multiple virtualhuman with the same name.</small>
+		  </div>
+
+		  
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="add btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div id="importModal" class="modal hide fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Import Metadata</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+      <div class="form-group">
+        
+       
+       
+            <input id="image-file" type="file" />
+           
+        
+      </div>
+
+      
+    </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Import</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+    <a class="navbar-brand mr-1" href="/">VIRHUS</a>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navbar Search -->
+ 
+
+    <!-- Navbar -->
+    <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
+    
+   
+      <li class="nav-item dropdown no-arrow ">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        	<b>Hi <%= id%>!</b>
+          <i class="fas fa-user-circle fa-fw"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+          <a class="dropdown-item openprofile" href="/profile" >Settings</a>
+          <a class="dropdown-item" href="#">Activity Log</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+        </div>
+      </li>
+    </ul>
+
+  </nav>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/overview">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Overview</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/protected_page">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>APP</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/stats">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Statistics</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api">
+          <i class="fas fa-fw fa-table"></i>
+          <span>API</span></a>
+      </li>
+    </ul>
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+  <div>
+       
+
+        <!-- Page Content -->
+        <h1>APP</h1>
+        <hr>
+        
+		
+		<span  class="btn btn-secondary showmodal">Create Virtual Human</span>
+		<span  class="btn btn-secondary play">Open Virtual Human</span>
+		<select  class="form-control selected_config" id="selected_config"></select>
+    <span class="btn btn-secondary importModal" id="import_metdadata">Import <i class="fas fa-upload"></i></span>
+		</div>
+
+		
+		
+
+
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="/logout">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin.min.js"></script>
+
+</body>
+
+
+
+</html>

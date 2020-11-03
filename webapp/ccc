@@ -1,0 +1,11 @@
+{
+   "name": "pi",
+   "description": "projeto final",
+   "version": "0.0.1",
+   "private": true,
+  
+   "devDependencies": {
+      "mocha": "1.20.1",
+      "supertest": "0.13.0"
+   }
+}

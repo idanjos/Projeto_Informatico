@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+   <link rel="stylesheet" href="http://192.168.160.56:3000/css/bootstrap.css">
+  <link rel="stylesheet" href="http://192.168.160.56:3000/js/rickshaw/rickshaw.css">
+  <script src="http://192.168.160.56:3000/js/jquery.js"></script>
+  <script src="http://192.168.160.56:3000/js/popper.js"></script>
+  <script src="http://192.168.160.56:3000/js/bootstrap.js"></script>
+  <script src="http://192.168.160.56:3000/js/d3.js" charset="utf-8"></script>
+  <script src="http://192.168.160.56:3000/js/rickshaw/rickshaw.js"></script>
+  <script src="http://192.168.160.56:3000/socket.io/socket.io.js"></script>
+  <script src="http://192.168.160.56:3000/js/virhus_api.js"></script>
+  <script src="http://192.168.160.56:3000/js/graphHandler.js"></script>
+	<script src="http://192.168.160.56:3000/js/api_core.js"></script>
+  <title>VIRHUS API</title>
+
+
+  <!-- Page level plugin CSS-->
+  <link href="http://192.168.160.56:3000/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="http://192.168.160.56:3000/css/sb-admin.css" rel="stylesheet">
+  <link href="http://192.168.160.56:3000/css/toggle-slider.css" rel="stylesheet">
+<style>
+.demo_chart {
+      position: relative;
+      left:40px;
+    }
+
+    .y_axis {
+      position: absolute;
+      float:left;
+      width: 40px;
+      height: 100px;
+    }
+</style>
+
+</head>
+
+<body id="page-top">
+
+  <div>
+
+<div aria-live="polite" aria-atomic="true" style="position: relative;">
+  <div class="toast" style="position: absolute; top: 70px; right: 0;" data-delay="5000">
+    <div class="toast-header">
+    
+      <strong class="mr-auto">Server Message</strong>
+      <small>Now</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      Error on creating Virtual Human
+    </div>
+  </div>
+</div>
+
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+    <a class="navbar-brand mr-1" href="http://192.168.160.56:3000/">VIRHUS</a>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navbar Search -->
+  
+
+<div class="modal fade bd-example-modal-lg" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      
+    </div>
+  </div>
+</div>
+
+    <!-- Navbar -->
+    
+
+  </nav>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+  
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+
+        <!-- Page Content -->
+        <h1>Test it yourself!</h1>
+        <hr>
+       
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Auth Token</label>
+            <input  class="form-control" id="token" aria-describedby="emailHelp" placeholder="Enter token">
+           <small id="emailHelp" class="form-text text-muted">See your token <a href="http://192.168.160.56:3000/profile">here!</a></small>
+          </div>
+      
+          <span id="testToken" class="btn btn-primary">Test</span>
+          <div class="row">
+          <div class="col">
+          <div class="form-group">
+            <br>
+            <label for="exampleFormControlSelect1">Gettting Virtual Humans</label>
+            <select class="form-control" id="getConfigsSelect">
+             
+            </select>
+          </div>
+          <span id="testGetConfigs" class="btn btn-primary">Test</span>
+        </div>
+
+         <div class="col">
+          <div class="form-group">
+            <br>
+            <label for="exampleFormControlSelect1">Gettting Records of Selected Virtual Human</label>
+            <select class="form-control" id="getConfigSelect">
+             
+            </select>
+          </div>
+          <span id="testGetConfig" class="btn btn-primary">Test</span>
+          <span id="testDownloadCSV" class="btn btn-primary">Download <i class="fas fa-download"></i></span>
+          <span id="testRunConfig" class="btn btn-success">Run <i class="fas fa-play"></i></span>
+         
+        </div>
+      </div>
+
+
+      </form>
+
+    
+
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+
+
+  <!-- Custom scripts for all pages-->
+  <script src="http://192.168.160.56:3000/js/sb-admin.min.js"></script>
+
+</body>
+<script>
+$(document).ready(function(){
+	
+	var virhus = new Virhus('http://192.168.160.56:3000',"");
+	virhus.disconnect();
+	virhus.on('freq',function(freq){
+		console.log(freq);
+		createGraphs();
+		updater = setInterval(function() {
+			virhus.requestData($("getConfigSelect").val());
+			insert(data.shift());		
+		}, freq/4);
+	})
+
+	virhus.on('data',function(_data){
+		console.log(data);
+		data = data.concat(_data);
+	})
+
+	virhus.on('close',function(data){
+		console.log("finished")
+	})
+
+	$("#testToken").on('click',function(){
+		token = $("#token").val();
+		virhus.connect('http://192.168.160.56:3000',token)
+		console.log(virhus)
+		virhus.whoami();
+		//virhus.play();
+		
+
+	});
+
+
+	$("#testGetConfigs").on('click',function(){
+		if(virhus.isConnected()){
+			virhus.get_configs(function(configs){
+				console.log(configs)
+				$("#getConfigsSelect").html("")
+				for(c in configs){
+					
+					$("#getConfigsSelect").append('<option>'+configs[c]+'</option>')
+				}
+			})
+
+		}
+	})
+	$("#testGetConfig").on("click",function(){
+		if(virhus.isConnected()){
+			virhus.get_config($("#getConfigsSelect").val(),function(data){
+				console.log(data)
+				$("#getConfigSelect").html("")
+				for(d in data.replays){
+					
+					$("#getConfigSelect").append('<option>'+data.replays[d]+'</option>')
+				}
+
+			})
+
+			
+		}
+	})
+
+	$("#testDownloadCSV").on("click",function(){
+		
+		if(virhus.isConnected())
+			virhus.downloadCSV($("#getConfigSelect").val());
+	})
+
+	$("#testRunConfig").on('click',function(){
+		if(virhus.isConnected() && !virhus.isRunning){
+
+
+			virhus.playRecord($("#getConfigSelect").val())
+			$('#myModal').modal('show')
+
+		}else if(virhus.isRunning){
+			virhus.stop()
+		}
+	})
+
+	
+})
+
+</script>
+</html>

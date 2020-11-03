@@ -1,0 +1,11 @@
+#!/bin/sh
+ssh tqs@192.168.160.56 <<EOF
+ cd ~/projeto_informatica
+ killall node
+ 
+ git pull
+ cd ~/projeto_informatica/webapp
+ npm install 
+ node index.js < /dev/null > /dev/null 2>&1 &
+ exit
+EOF

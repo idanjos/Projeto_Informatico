@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>VirHus</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <style>
+            body {
+                font: 400 15px/1.8 Lato, sans-serif;
+                line-height: 1.8;
+                color: #818181;
+            }
+
+            .header {
+                min-height:100%;
+                background-image: url('img/448849-signal-digital_art-748x468.jpg');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size:cover;
+                box-shadow: inset 2000px 0 0 0 rgba(0, 0, 0, 0.5);
+                background-size: 1600px;
+                color: white;
+                padding: 250px 25px;
+                font-family: Montserrat, sans-serif;
+            }
+
+            h1{
+                font-family: 'Open Sans', sans-serif !important;
+                color: #555 !important;
+                text-decoration: none !important;
+                text-transform: uppercase !important;
+                font-size: 150px !important;
+                font-weight: 800 !important;
+                letter-spacing: -3px !important;
+                line-height: 1 !important;
+                text-shadow: #EDEDED 3px 2px 0 !important;
+                position: relative !important;
+
+            }
+
+            .login{
+                padding: 80px 120px;
+            }
+
+            .nav-tabs li a {
+                color: #777;
+            }
+
+
+            .navbar {
+                font-family: Montserrat, sans-serif;
+                margin-bottom: 0;
+                background-color: #2d2d30;
+                border: 0;
+                font-size: 15px !important;
+                letter-spacing: 4px;
+                opacity: 0.9;
+            }
+            .navbar li a, .navbar .navbar-brand { 
+                color: #d5d5d5 !important;
+            }
+            .navbar-nav li a:hover {
+                color: #fff !important;
+            }
+            .navbar-nav li.active a {
+                color: #fff !important;
+                background-color: #29292c !important;
+            }
+            .navbar-default .navbar-toggle {
+                border-color: transparent;
+            }
+            .container-fluid {
+                padding: 10px 50px;
+            }
+
+            h2 {
+                font-size: 24px;
+                text-transform: uppercase;
+                color: #303030;
+                font-weight: 600;
+                margin-bottom: 30px;
+            }
+
+            .aboutV{
+
+                padding: 250px;
+            }
+            .aboutV h3 {color: black;}
+            .aboutV p {font-style: italic;}
+
+            @keyframes slide {
+                0% {
+                    opacity: 0;
+                    transform: translateY(70%);
+                } 
+                100% {
+                    opacity: 1;
+                    transform: translateY(0%);
+                }
+            }
+            @-webkit-keyframes slide {
+                0% {
+                    opacity: 0;
+                    -webkit-transform: translateY(70%);
+                } 
+                100% {
+                    opacity: 1;
+                    -webkit-transform: translateY(0%);
+                }
+            }
+            @media screen and (max-width: 768px) {
+                .col-sm-4 {
+                    text-align: center;
+                    margin: 25px 0;
+                }
+                .btn-lg {
+                    width: 100%;
+                    margin-bottom: 35px;
+                }
+            }
+            @media screen and (max-width: 480px) {
+                .logo {
+                    font-size: 150px;
+                }
+            }
+
+            .form-control {
+                border-radius: 0;
+            }
+            textarea {
+                resize: none;
+            }
+
+            /* Full-width input fields */
+            input[type=text], input[type=password] {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+
+            /* Set a style for all buttons */
+            button {
+                position: relative;
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                width: 100%;
+            }
+
+            button:hover {
+                border:1px solid #fff;            
+                color:#000;
+                opacity: 0.8;
+            }
+
+            /* Extra styles for the cancel button */
+            .cancelbtn {
+                width: auto;
+                padding: 10px 18px;
+                background-color: #f44336;
+            }
+
+            /* Center the image and position the close button */
+            .imgcontainer {
+                text-align: center;
+                margin: 24px 0 12px 0;
+                position: relative;
+            }
+
+            .container {
+                padding: 16px;
+            }
+
+            span.psw {
+                float: right;
+                padding-top: 16px;
+            }
+
+            /* The Modal (background) */
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                padding-top: 60px;
+            }
+
+            /* Modal Content/Box */
+            .modal-content {
+                position: absolute;
+                background-color: #fefefe;
+                margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+                border: 1px solid #888;
+                width: 100%; /* Could be more or less, depending on screen size */
+            }
+
+            /* The Close Button (x) */
+            .close {
+                position: absolute;
+                right: 25px;
+                top: 0;
+                color: #000;
+                font-size: 35px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: red;
+                cursor: pointer;
+            }
+
+            /* Add Zoom Animation */
+            .animate {
+                -webkit-animation: animatezoom 0.6s;
+                animation: animatezoom 0.6s
+            }
+
+            .page-footer {
+                background-color: #222;
+                color: #ccc;
+                padding: 6px 0 30px;
+            }
+
+            .col-sm-4{
+                font-weight: bold;
+                text-align: center;
+                margin-top: 15px;
+            }
+            .col-md-12{
+
+                font-weight: bold;
+                font-size: 16px !important;
+                text-align: center;
+            }
+
+            #overlay {
+                background-color: #EEEEEE;
+                position: absolute;
+                z-index:100;
+            }
+
+
+
+        </style>
+
+    </head>
+    <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">                                              
+                    </button>
+                    <a class="navbar-brand" href="#myPage"><span class="glyphicon glyphicon-home"></span></a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#about">ABOUT</a></li>
+                        <li><a href="#contact">CONTACT</a></li
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="header text-center">
+            <h1>VirHus</h1>
+            <h5><strong>Digital laboratory for the simulation of human physiology and behavior</strong></h5>
+            <button onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;">Login</button>
+            <p><strong>New to VIRHUS?</strong><br><a href="registration.html" data-toggle="modal" data-target="/registration.html"><strong>Sign up for a new account</strong></a></p>
+            <div id='overlay'></div>
+        </div>
+
+
+
+
+
+        <div id="id01" class="modal">
+            <form class="modal-content animate" action="/action_page.php">
+
+                <div class="imgcontainer">
+                    <h3>Login into your account</h3>
+                    <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
+
+                </div>
+
+                <div class="container">
+                    <label for="uname"><span class="glyphicon glyphicon-user"></span><b>  Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" required>
+
+                    <label for="psw"><span class="glyphicon glyphicon-lock"></span><b>  Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+
+                    <button type="submit" formaction="initialPage.html">Login</button>
+
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                </div>
+
+                <div class="container" style="background-color:#f1f1f1">
+                    <button type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn">Cancel</button>
+                    <span class="psw">Forgot <a href="#">password?</a></span>
+                </div>
+            </form>
+        </div>
+        <!-- Container (The about Section) -->
+        <div id="about" class="aboutV text-center">
+            <h3>About VirHus</h3>
+            <p>We have created a virtual human lab website.</p>
+            <br>
+        </div>
+
+
+        <footer class="page-footer">
+            <div id="contact" class="container">
+                <div class="row">
+
+                    <div class="col-md-12 text-uppercase">Contact</div>
+                    <div class="col-sm-4">macario.goncalo@ua.pt</div>
+                    <div class="col-sm-4">francisco.pinho@ua.pt</div>
+                    <div class="col-sm-4">itda@ua.pt</div>
+                </div>
+
+            </div>
+        </footer>
+
+
+
+
+        <script>
+            $(document).ready(function () {
+                // Initialize Tooltip
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // Add smooth scrolling to all links in navbar + footer link
+                $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+
+                    // Make sure this.hash has a value before overriding default behavior
+                    if (this.hash !== "") {
+
+                        // Prevent default anchor click behavior
+                        event.preventDefault();
+
+                        // Store hash
+                        var hash = this.hash;
+
+                        // Using jQuery's animate() method to add smooth page scroll
+                        // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+                        $('html, body').animate({
+                            scrollTop: $(hash).offset().top
+                        }, 900, function () {
+
+                            // Add hash (#) to URL when done scrolling (default click behavior)
+                            window.location.hash = hash;
+                        });
+                    } // End if
+                });
+            })
+
+            // Get the modal
+            var modal = document.getElementById('id01');
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+    </body>
+</html>
